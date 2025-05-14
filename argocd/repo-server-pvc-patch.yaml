@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: argocd-repo-server
-  namespace: argocd
+  namespace: argocd1
 spec:
   template:
     spec:
@@ -15,3 +15,4 @@ spec:
           volumeMounts:
             - name: repo-volume
               mountPath: /tmp
+
