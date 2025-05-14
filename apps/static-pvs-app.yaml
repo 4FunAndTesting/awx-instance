@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/your-org/argocd-bootstrap.git
+    repoURL: https://github.com/4FunAndTesting/awx-instance.git
     targetRevision: HEAD
     path: pvs
   destination:
