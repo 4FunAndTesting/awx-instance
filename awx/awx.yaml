@@ -6,7 +6,6 @@ metadata:
 spec:
   service_type: nodeport
   create_postgres_container: true
-  postgres_storage_class: ""
   postgres_volume_capacity: 8Gi
   postgres_data_volume_init: true
 
