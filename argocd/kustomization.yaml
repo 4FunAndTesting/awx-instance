@@ -1,0 +1,2 @@
+resources:
+  - repo-server-pvc-patch.yaml
