@@ -8,4 +8,5 @@ spec:
   create_postgres_container: true
   postgres_storage_class: ""
   postgres_volume_capacity: 8Gi
-  postgres_data_volume_init: true  # ✅ this is the key
+  postgres_data_volume_init: true
+
