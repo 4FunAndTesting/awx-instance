@@ -1,0 +1,13 @@
+apiVersion: awx.ansible.com/v1beta1
+kind: AWX
+metadata:
+  name: awx
+  namespace: awx
+spec:
+  service_type: nodeport
+  pvc_name: awx-pvc
+  volume_mount_path: /var/lib/awx
+  postgres_storage_class: ""
+  postgres_volume_capacity: 4Gi
+  ingress_type: none
+  create_preload_data: true
