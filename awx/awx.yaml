@@ -9,6 +9,15 @@ spec:
   postgres_storage_class: ""
   postgres_volume_capacity: 40Gi
   extra_volumes:
+    postgres-data:
+      persistentVolumeClaim:
+        claimName: awx-pvc
+  extra_volume_mounts:
+    postgres-data:
+      mountPath: /var/lib/pgsql/data
+      subPath: userdata
+  postgres_volume_capacity: 40Gi
+  extra_volumes:
     - name: postgres-data
       persistentVolumeClaim:
         claimName: awx-pvc
