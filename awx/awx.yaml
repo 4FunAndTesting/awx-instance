@@ -5,9 +5,14 @@ metadata:
   namespace: awx
 spec:
   service_type: nodeport
-  pvc_name: awx-pvc
-  volume_mount_path: /var/lib/awx
+  create_postgres_container: true
   postgres_storage_class: ""
-  postgres_volume_capacity: 4Gi
-  ingress_type: none
-  create_preload_data: true
+  postgres_volume_capacity: 40Gi
+  extra_volumes:
+    - name: postgres-data
+      persistentVolumeClaim:
+        claimName: awx-pvc
+  extra_volume_mounts:
+    - name: postgres-data
+      mountPath: /var/lib/pgsql/data
+      subPath: userdata
