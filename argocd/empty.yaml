@@ -1,5 +1,0 @@
-# dummy placeholder so Kustomize doesn't complain about missing base
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: argocd

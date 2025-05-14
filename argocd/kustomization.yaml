@@ -1,5 +1,0 @@
-resources:
-  - empty.yaml  # keep structure valid
-
-patchesStrategicMerge:
-  - repo-server-pvc-patch.yaml
