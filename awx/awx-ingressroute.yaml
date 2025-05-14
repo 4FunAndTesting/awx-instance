@@ -7,7 +7,12 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`awx.somehostname.local`) || Host(`somehostname.local`)
+    - match: Host(`awx.somehostname.local`)
+      kind: Rule
+      services:
+        - name: awx-service
+          port: 80
+    - match: Host(`somehostname.local`)
       kind: Rule
       services:
         - name: awx-service
