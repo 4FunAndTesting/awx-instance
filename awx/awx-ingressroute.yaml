@@ -8,10 +8,11 @@ spec:
     - web
     - websecure
   routes:
-    - match: Host(`awx.somehostname.local`)
+    - match: Host(`awx.somehostname.local`) || Host(`10.9.254.108`)
       kind: Rule
       services:
         - name: awx-service
           port: 80
+          scheme: http
   tls:
     certResolver: le
