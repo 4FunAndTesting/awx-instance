@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: traefik
-          image: traefik:v2.10  # adjust if you're using another version
+          image: traefik:v2.10
           args:
             - "--configFile=/etc/traefik/traefik.yml"
           ports:
