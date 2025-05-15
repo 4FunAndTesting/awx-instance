@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: awx-storage
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/4FunAndTesting/awx-instance.git
+    targetRevision: HEAD
+    path: awx-storage
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: awx
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
