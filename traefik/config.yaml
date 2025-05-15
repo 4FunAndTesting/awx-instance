@@ -8,8 +8,9 @@ spec:
     spec:
       containers:
         - name: traefik
+          image: traefik:v2.10  # or your current version
           args:
-            - "--configFile=/etc/traefik/traefik.yml"
+            - --configFile=/etc/traefik/traefik.yml
           volumeMounts:
             - name: config
               mountPath: /etc/traefik
