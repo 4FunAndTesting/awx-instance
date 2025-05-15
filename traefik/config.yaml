@@ -1,3 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: traefik
+  namespace: kube-system
+spec:
+  template:
+    spec:
+      containers:
+        - name: traefik
+          volumeMounts:
+            - name: acme
+              mountPath: /data
+      volumes:
+        - name: acme
+          hostPath:
+            path: /data
+            type: DirectoryOrCreate
+---
 apiVersion: v1
 kind: ConfigMap
 metadata:

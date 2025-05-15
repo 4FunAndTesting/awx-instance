@@ -13,10 +13,5 @@ spec:
       services:
         - name: awx-service
           port: 80
-    - match: Host(`somehostname.local`)
-      kind: Rule
-      services:
-        - name: awx-service
-          port: 80
   tls:
     certResolver: le
