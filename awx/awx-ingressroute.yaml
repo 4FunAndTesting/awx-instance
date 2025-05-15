@@ -8,7 +8,7 @@ spec:
     - web
     - websecure
   routes:
-    - match: Host(`awx.somehostname.local`) || Host(`somehostname.local`)
+    - match: Host(`awx.somehostname.local`)
       kind: Rule
       services:
         - name: awx-service

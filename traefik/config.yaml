@@ -21,9 +21,10 @@ spec:
         - name: traefik
           image: traefik:v2.10
           args:
-            - "--configFile=/etc/traefik/traefik.yml"
-            - "--api.dashboard=true"
-            - "--api.insecure=true"
+            - --configFile=/etc/traefik/traefik.yml
+            - --api.insecure=true
+            - --providers.kubernetescrd=true
+            - --log.level=INFO
           ports:
             - name: web
               containerPort: 80
@@ -45,7 +46,6 @@ spec:
           hostPath:
             path: /data
             type: DirectoryOrCreate
-
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -68,3 +68,5 @@ data:
           storage: /data/acme.json
           httpChallenge:
             entryPoint: web
+    api:
+      dashboard: true
