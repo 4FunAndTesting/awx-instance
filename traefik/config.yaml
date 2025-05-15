@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: traefik
-          image: traefik:v2.10
+          image: traefik:latest
           args:
             - --configFile=/etc/traefik/traefik.yml
             - --api.insecure=true

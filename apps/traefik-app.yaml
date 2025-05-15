@@ -1,14 +1,57 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: traefik-config
+  name: traefik
   namespace: argocd
 spec:
   project: default
   source:
-    repoURL: https://github.com/4FunAndTesting/awx-instance.git
-    targetRevision: HEAD
-    path: traefik
+    repoURL: https://traefik.github.io/traefik-helm-chart
+    chart: traefik
+    targetRevision: 27.0.2
+    helm:
+      releaseName: traefik
+      values: |
+        ports:
+          web:
+            port: 80
+            expose: true
+            exposedPort: 80
+            protocol: TCP
+          websecure:
+            port: 443
+            expose: true
+            exposedPort: 443
+            protocol: TCP
+
+        ingressRoute:
+          dashboard:
+            enabled: true
+
+        providers:
+          kubernetesCRD:
+            enabled: true
+          kubernetesIngress:
+            enabled: true
+
+        certificatesResolvers:
+          le:
+            email: admin@somehostname.local
+            httpChallenge:
+              entryPoint: web
+            storage: /data/acme.json
+
+        additionalArguments:
+          - "--certificatesresolvers.le.acme.tlschallenge=false"
+          - "--certificatesresolvers.le.acme.httpchallenge.entrypoint=web"
+          - "--certificatesresolvers.le.acme.email=admin@somehostname.local"
+          - "--certificatesresolvers.le.acme.storage=/data/acme.json"
+
+        persistence:
+          enabled: true
+          accessMode: ReadWriteOnce
+          size: 1Gi
+          path: /data
   destination:
     server: https://kubernetes.default.svc
     namespace: kube-system
