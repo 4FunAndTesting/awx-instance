@@ -8,14 +8,22 @@ spec:
     spec:
       containers:
         - name: traefik
+          args:
+            - "--configFile=/etc/traefik/traefik.yml"
           volumeMounts:
+            - name: config
+              mountPath: /etc/traefik
             - name: acme
               mountPath: /data
       volumes:
+        - name: config
+          configMap:
+            name: traefik-config
         - name: acme
           hostPath:
             path: /data
             type: DirectoryOrCreate
+
 ---
 apiVersion: v1
 kind: ConfigMap
