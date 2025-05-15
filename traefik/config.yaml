@@ -22,11 +22,15 @@ spec:
           image: traefik:v2.10
           args:
             - "--configFile=/etc/traefik/traefik.yml"
+            - "--api.dashboard=true"
+            - "--api.insecure=true"
           ports:
             - name: web
               containerPort: 80
             - name: websecure
               containerPort: 443
+            - name: dashboard
+              containerPort: 8080
           volumeMounts:
             - name: config
               mountPath: /etc/traefik/traefik.yml
