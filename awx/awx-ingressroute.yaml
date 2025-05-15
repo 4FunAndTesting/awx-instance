@@ -5,6 +5,7 @@ metadata:
   namespace: awx
 spec:
   entryPoints:
+    - web
     - websecure
   routes:
     - match: Host(`awx.somehostname.local`)
