@@ -25,17 +25,27 @@ spec:
               default: true
             exposedPort: 443
             protocol: TCP
-        service:
-          type: LoadBalancer
-        providers:
-          kubernetesIngress:
+
+        ingressRoute:
+          dashboard:
             enabled: true
+
+        providers:
           kubernetesCRD:
             enabled: true
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: kube-system
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
+          kubernetesIngress:
+            enabled: true
+
+        additionalArguments:
+          - "--certificatesresolvers.le.acme.email=admin@somehostname.local"
+          - "--certificatesresolvers.le.acme.storage=/data/acme.json"
+          - "--certificatesresolvers.le.acme.httpchallenge.entrypoint=web"
+          - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
+          - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
+
+        persistence:
+          enabled: true
+          storageClass: local-path
+          accessMode: ReadWriteOnce
+          size: 1Gi
+          path: /data
