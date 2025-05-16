@@ -15,40 +15,30 @@ spec:
         ports:
           web:
             port: 80
-            expose:
-              default: true
+            expose: true
             exposedPort: 80
             protocol: TCP
           websecure:
             port: 443
-            expose:
-              default: true
+            expose: true
             exposedPort: 443
             protocol: TCP
-          dashboard:
+          traefik:
             port: 9000
-            expose:
-              default: true
+            expose: true
             exposedPort: 9000
             protocol: TCP
 
         service:
-          dashboard:
-            enabled: true
-            type: NodePort
-            ports:
-              - port: 9000
-                targetPort: 9000
-                nodePort: 30900
-                protocol: TCP
+          type: ClusterIP
 
         ingressRoute:
           dashboard:
-            enabled: true
+            enabled: false
 
         providers:
           kubernetesCRD:
-            enabled: true
+            enabled: false
           kubernetesIngress:
             enabled: true
 
@@ -56,6 +46,7 @@ spec:
           - "--certificatesresolvers.le.acme.email=admin@somehostname.local"
           - "--certificatesresolvers.le.acme.storage=/data/acme.json"
           - "--certificatesresolvers.le.acme.httpchallenge.entrypoint=web"
+          - "--api.dashboard=true"
 
         persistence:
           enabled: true
