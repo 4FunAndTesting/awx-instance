@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://charts.openshift.io
+    repoURL: https://ansible-community.github.io/awx-operator-helm/
     chart: awx-operator
     targetRevision: 2.19.1
     helm:
