@@ -36,18 +36,10 @@ spec:
           kubernetesIngress:
             enabled: true
 
-        certificatesResolvers:
-          le:
-            email: admin@somehostname.local
-            httpChallenge:
-              entryPoint: web
-            storage: /data/acme.json
-
         additionalArguments:
-          - "--certificatesresolvers.le.acme.tlschallenge=false"
-          - "--certificatesresolvers.le.acme.httpchallenge.entrypoint=web"
           - "--certificatesresolvers.le.acme.email=admin@somehostname.local"
           - "--certificatesresolvers.le.acme.storage=/data/acme.json"
+          - "--certificatesresolvers.le.acme.httpchallenge.entrypoint=web"
 
         persistence:
           enabled: true
