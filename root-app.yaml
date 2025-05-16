@@ -7,8 +7,10 @@ spec:
   project: default
   source:
     repoURL: https://github.com/4FunAndTesting/awx-instance.git
-    targetRevision: HEAD
     path: apps
+    targetRevision: HEAD
+    directory:
+      recurse: true
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd
