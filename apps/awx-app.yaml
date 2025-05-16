@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/4FunAndTesting/awx-instance.git
+    repoURL: s://github.com/4FunAndTesting/awx-instance.githttp
     path: awx
     targetRevision: HEAD
   destination:

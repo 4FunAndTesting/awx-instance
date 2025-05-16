@@ -12,3 +12,12 @@ spec:
     size: 8Gi
   postgres_storage_class: local-path
   postgres_resource_requirements: {}
+
+  extraVolumeMounts:
+    - name: awx-data
+      mountPath: /var/lib/awx
+
+  extraVolumes:
+    - name: awx-data
+      persistentVolumeClaim:
+        claimName: awx-data
