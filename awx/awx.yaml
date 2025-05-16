@@ -2,6 +2,13 @@ apiVersion: awx.ansible.com/v1beta1
 kind: AWX
 metadata:
   name: awx
-  namespace: awx
 spec:
   service_type: ClusterIP
+  ingress_type: none
+  hostname: awx.somehostname.local
+  replicas: 1
+  persistence:
+    storageClass: local-path
+    size: 8Gi
+  postgres_storage_class: local-path
+  postgres_resource_requirements: {}
