@@ -22,9 +22,6 @@ spec:
           image: traefik:latest
           args:
             - --configFile=/etc/traefik/traefik.yml
-            - --api.insecure=true
-            - --providers.kubernetescrd=true
-            - --log.level=INFO
           ports:
             - name: web
               containerPort: 80
@@ -64,6 +61,8 @@ data:
         address: ":80"
       websecure:
         address: ":443"
+    providers:
+      kubernetesCRD: {}
     certificatesResolvers:
       le:
         acme:
@@ -73,3 +72,5 @@ data:
             entryPoint: web
     api:
       dashboard: true
+    log:
+      level: INFO
