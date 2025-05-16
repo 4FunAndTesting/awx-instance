@@ -44,7 +44,7 @@ spec:
     spec:
       containers:
         - name: traefik
-          image: traefik:latest
+          image: traefik:v3.3.6
           args:
             - --configFile=/etc/traefik/traefik.yml
           ports:
@@ -59,8 +59,7 @@ spec:
               hostPort: 30088
           volumeMounts:
             - name: config
-              mountPath: /etc/traefik/traefik.yml
-              subPath: traefik.yml
+              mountPath: /etc/traefik
             - name: acme
               mountPath: /data
       volumes:
