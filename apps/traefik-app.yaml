@@ -6,49 +6,14 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://helm.traefik.io/traefik
-    chart: traefik
-    targetRevision: 35.2.0
+    repoURL: https://github.com/4FunAndTesting/awx-instance.git
+    path: traefik
+    targetRevision: HEAD
     helm:
+      chart: traefik
       releaseName: traefik
-      values: |
-        ports:
-          web:
-            port: 80
-            expose:
-              default: true
-            exposedPort: 80
-            protocol: TCP
-          websecure:
-            port: 443
-            expose:
-              default: true
-            exposedPort: 443
-            protocol: TCP
-
-        ingressRoute:
-          dashboard:
-            enabled: true
-
-        providers:
-          kubernetesCRD:
-            enabled: true
-          kubernetesIngress:
-            enabled: true
-
-        additionalArguments:
-          - "--certificatesresolvers.le.acme.email=admin@somehostname.local"
-          - "--certificatesresolvers.le.acme.storage=/data/acme.json"
-          - "--certificatesresolvers.le.acme.httpchallenge.entrypoint=web"
-          - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
-          - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
-
-        persistence:
-          enabled: true
-          storageClass: local-path
-          accessMode: ReadWriteOnce
-          size: 1Gi
-          path: /data
+      valueFiles:
+        - values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: kube-system
