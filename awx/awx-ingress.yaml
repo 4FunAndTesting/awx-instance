@@ -1,11 +1,23 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: redirect-https
+  namespace: awx
+spec:
+  redirectScheme:
+    scheme: https
+    permanent: true
+---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: awx-ingress
   namespace: awx
   annotations:
-    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
     traefik.ingress.kubernetes.io/router.tls.certresolver: le
+    traefik.ingress.kubernetes.io/router.middlewares: awx-redirect-https@kubernetescrd
 spec:
   rules:
     - host: awx.somehostname.local
@@ -15,9 +27,4 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: awx-service
-                port:
-                  number: 80
-  tls:
-    - hosts:
-        - awx.somehostname.local
+                name: a
