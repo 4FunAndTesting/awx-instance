@@ -25,37 +25,13 @@ spec:
               default: true
             exposedPort: 443
             protocol: TCP
-          traefik:
-            port: 9000
-            expose:
-              default: true
-            exposedPort: 9000
-            protocol: TCP
-
-        ingressRoute:
-          dashboard:
-            enabled: true
-
+        service:
+          type: LoadBalancer
         providers:
-          kubernetesCRD:
-            enabled: true
           kubernetesIngress:
             enabled: true
-
-        additionalArguments:
-          - "--api.dashboard=true"
-          - "--certificatesresolvers.le.acme.email=admin@somehostname.local"
-          - "--certificatesresolvers.le.acme.storage=/data/acme.json"
-          - "--certificatesresolvers.le.acme.httpchallenge.entrypoint=web"
-          - "--entrypoints.web.http.redirections.entrypoint.to=websecure"
-          - "--entrypoints.web.http.redirections.entrypoint.scheme=https"
-          - "--entrypoints.web.http.redirections.entrypoint.permanent=true"
-
-        persistence:
-          enabled: true
-          accessMode: ReadWriteOnce
-          size: 1Gi
-          path: /data
+          kubernetesCRD:
+            enabled: true
   destination:
     server: https://kubernetes.default.svc
     namespace: kube-system

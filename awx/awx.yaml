@@ -4,12 +4,4 @@ metadata:
   name: awx
   namespace: awx
 spec:
-  service_type: nodeport
-  projects_storage_access_mode: ReadWriteOnce
-  web_extra_volume_mounts: |
-    - name: static-data
-      mountPath: /var/lib/awx/projects
-  extra_volumes: |
-    - name: static-data
-      persistentVolumeClaim:
-        claimName: public-static-data-pvc
+  service_type: ClusterIP

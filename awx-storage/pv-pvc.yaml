@@ -1,12 +1,11 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: public-static-data-pvc
+  name: awx-data
   namespace: awx
 spec:
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 30Gi
-  storageClassName: local-path  # optional; could omit if it's default
+      storage: 8Gi
