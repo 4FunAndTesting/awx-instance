@@ -1,58 +1,8 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: traefik
-  namespace: kube-system
-  labels:
-    app.kubernetes.io/instance: traefik-kube-system
-    app.kubernetes.io/name: traefik
-spec:
-  selector:
-    matchLabels:
-      app.kubernetes.io/instance: traefik-kube-system
-      app.kubernetes.io/name: traefik
-  template:
-    metadata:
-      labels:
-        app.kubernetes.io/instance: traefik-kube-system
-        app.kubernetes.io/name: traefik
-    spec:
-      containers:
-        - name: traefik
-          image: traefik:latest
-          args:
-            - --configFile=/etc/traefik/traefik.yml
-          ports:
-            - name: web
-              containerPort: 80
-              hostPort: 30080
-            - name: websecure
-              containerPort: 443
-              hostPort: 30443
-            - name: dashboard
-              containerPort: 8080
-              hostPort: 8080
-          volumeMounts:
-            - name: config
-              mountPath: /etc/traefik
-            - name: acme
-              mountPath: /data
-      volumes:
-        - name: config
-          configMap:
-            name: traefik-config
-        - name: acme
-          hostPath:
-            path: /data
-            type: DirectoryOrCreate
----
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: traefik-config
   namespace: kube-system
-  labels:
-    app.kubernetes.io/name: traefik
 data:
   traefik.yml: |
     entryPoints:
@@ -73,3 +23,47 @@ data:
       dashboard: true
     log:
       level: INFO
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: traefik
+  namespace: kube-system
+  labels:
+    app.kubernetes.io/name: traefik
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: traefik
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: traefik
+    spec:
+      containers:
+        - name: traefik
+          image: traefik:latest
+          args:
+            - --configFile=/etc/traefik/traefik.yml
+          ports:
+            - name: web
+              containerPort: 80
+              hostPort: 30080
+            - name: websecure
+              containerPort: 443
+              hostPort: 30443
+            - name: dashboard
+              containerPort: 8080
+              hostPort: 30088
+          volumeMounts:
+            - name: config
+              mountPath: /etc/traefik/traefik.yml
+              subPath: traefik.yml
+            - name: acme
+              mountPath: /data
+      volumes:
+        - name: config
+          configMap:
+            name: traefik-config
+        - name: acme
+          emptyDir: {}
