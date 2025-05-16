@@ -49,3 +49,10 @@ spec:
           accessMode: ReadWriteOnce
           size: 1Gi
           path: /data
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kube-system
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
