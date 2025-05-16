@@ -1,3 +1,2 @@
 resources:
   - awx.yaml
-  - awx-ingressroute.yaml
