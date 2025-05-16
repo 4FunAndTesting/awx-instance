@@ -34,8 +34,7 @@ spec:
               hostPort: 8080
           volumeMounts:
             - name: config
-              mountPath: /etc/traefik/traefik.yml
-              subPath: traefik.yml
+              mountPath: /etc/traefik
             - name: acme
               mountPath: /data
       volumes:
