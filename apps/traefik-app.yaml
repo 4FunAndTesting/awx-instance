@@ -32,9 +32,6 @@ spec:
             exposedPort: 9000
             protocol: TCP
 
-        service:
-          type: ClusterIP
-
         ingressRoute:
           dashboard:
             enabled: true
@@ -46,10 +43,13 @@ spec:
             enabled: true
 
         additionalArguments:
+          - "--api.dashboard=true"
           - "--certificatesresolvers.le.acme.email=admin@somehostname.local"
           - "--certificatesresolvers.le.acme.storage=/data/acme.json"
           - "--certificatesresolvers.le.acme.httpchallenge.entrypoint=web"
-          - "--api.dashboard=true"
+          - "--entrypoints.web.http.redirections.entrypoint.to=websecure"
+          - "--entrypoints.web.http.redirections.entrypoint.scheme=https"
+          - "--entrypoints.web.http.redirections.entrypoint.permanent=true"
 
         persistence:
           enabled: true
