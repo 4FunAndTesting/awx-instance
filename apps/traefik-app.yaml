@@ -25,6 +25,22 @@ spec:
               default: true
             exposedPort: 443
             protocol: TCP
+          dashboard:
+            port: 9000
+            expose:
+              default: true
+            exposedPort: 9000
+            protocol: TCP
+
+        service:
+          dashboard:
+            enabled: true
+            type: NodePort
+            ports:
+              - port: 9000
+                targetPort: 9000
+                nodePort: 30900
+                protocol: TCP
 
         ingressRoute:
           dashboard:
