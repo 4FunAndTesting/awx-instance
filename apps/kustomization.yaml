@@ -1,7 +1,0 @@
-resources:
-  - awx-app.yaml
-  - awx-operator-app.yaml
-  - awx-storage-app.yaml
-  - traefik-app.yaml
-
-namespace: aws 
